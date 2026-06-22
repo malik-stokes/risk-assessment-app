@@ -13,7 +13,7 @@ The application generates a risk score and recommendation based on crime, weathe
 - Disaster history lookup by state (FEMA API)
 - Crime risk simulation layer (extensible placeholder)
 - Population data via U.S. Census API
-- Weighted risk scoring engine (0–100 scale)
+- Weighted risk scoring system
 - Categorized risk levels:
   - Low Risk
   - Moderate Risk
@@ -45,6 +45,14 @@ The application generates a risk score and recommendation based on crime, weathe
 - U.S. Census Bureau ACS API
 
 ---
+
+## Quick Start
+
+1. Clone the repository
+2. Configure the `.env` file
+3. Install backend and frontend dependencies
+4. Start the FastAPI backend
+5. Start the Next.js frontend
 
 ## How It Works
 
@@ -138,7 +146,8 @@ risk-assessment-app/
 │   │   ├── services/
 │   │   ├── main.py
 │   │   ├── database.py
-│   │   └── models.py
+│   │   ├── models.py
+│   │   └── risk_engine.py
 │   ├── requirements.txt
 │   └── .env.example
 │ 
@@ -152,6 +161,69 @@ risk-assessment-app/
 │   └── next.config.ts
 │ 
 └── .gitignore
+```
+
+---
+
+## Setup
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/yourusername/risk-assessment-app.git
+cd risk-assessment-app
+```
+
+### 2. Configure environment variables
+
+Navigate to the `cd backend` folder.
+
+Copy `.env.example` to a new file named `.env`.
+
+```text
+backend/
+├── .env.example
+└── .env
+```
+
+This project uses the U.S. Census Bureau API to retrieve population data. Request a free API key from the U.S. Census Bureau:
+
+https://api.census.gov/data/key_signup.html
+
+Then add your API key to the `.env` file:
+
+```env
+CENSUS_API_KEY=your_api_key_here
+```
+
+The `.env` file is ignored by Git to prevent sensitive information from being committed.
+
+### 3. Install backend dependencies
+
+```bash
+cd backend
+pip install -r requirements.txt
+```
+
+### 4. Install frontend dependencies
+
+```bash
+cd ../frontend
+npm install
+```
+
+### 5. Run the application
+
+Backend:
+
+```bash
+uvicorn app.main:app --reload
+```
+
+Frontend:
+
+```bash
+npm run dev
 ```
 
 ---
@@ -175,15 +247,6 @@ risk-assessment-app/
 - User authentication system
 - Data visualization (charts & graphs)
 - Improved FastAPI testing suite
-
----
-
-## Environment Variables
-
-Sensitive keys are stored securely using `.env`:
-CENSUS_API_KEY=your_api_key_here
-
-These are loaded using `python-dotenv` and are **not committed to version control**.
 
 ---
 
